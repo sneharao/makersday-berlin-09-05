@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scholastic AI - Chat Interface</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#41484a",
+                        "primary-container": "#0a373f",
+                        "on-secondary-fixed": "#001f24",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#302dbe",
+                        "on-primary-fixed-variant": "#244c55",
+                        "tertiary-container": "#1302ab",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#c1c1ff",
+                        "inverse-surface": "#2f3131",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#dadada",
+                        "surface": "#f9f9f9",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f9f9f9",
+                        "tertiary-fixed": "#e1dfff",
+                        "secondary-fixed": "#afedfa",
+                        "background": "#f9f9f9",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#e2e2e3",
+                        "surface-tint": "#3d646d",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#8b8eff",
+                        "on-secondary-fixed-variant": "#004e59",
+                        "on-primary-fixed": "#001f25",
+                        "tertiary": "#08006f",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#93d0dd",
+                        "primary": "#002127",
+                        "surface-variant": "#e2e2e3",
+                        "outline-variant": "#c0c8ca",
+                        "outline": "#71787a",
+                        "on-surface": "#1a1c1c",
+                        "surface-container-high": "#e8e8e8",
+                        "secondary": "#256772",
+                        "secondary-container": "#aceaf7",
+                        "on-primary-container": "#79a0aa",
+                        "on-tertiary-fixed": "#08006c",
+                        "on-secondary-container": "#2b6b76",
+                        "inverse-primary": "#a5cdd7",
+                        "primary-fixed": "#c0e9f4",
+                        "on-background": "#1a1c1c",
+                        "inverse-on-surface": "#f1f1f1",
+                        "surface-container-low": "#f3f3f4",
+                        "primary-fixed-dim": "#a5cdd7",
+                        "surface-container": "#eeeeee"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem", // 8px
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "lg": "48px",
+                        "xl": "64px",
+                        "sm": "12px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "6": "24px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-caps": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "body-sm": ["Hanken Grotesk"],
+                        "title-sm": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "title-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface-bright text-on-background font-body-md min-h-screen flex antialiased">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col p-md gap-base border-r border-outline-variant/30 bg-surface-bright fixed left-0 top-0 h-screen w-[280px] z-50">
+<!-- Header -->
+<div class="mb-lg px-xs">
+<div class="flex items-center gap-sm mb-sm">
+<img alt="Scholastic AI Logo" class="w-8 h-8 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASN4t-Zfje8mVXFdzaTdFF-tlnbNVqjFjCjKFOFKlWMy4I4ut31cFaZItsyoOt1_TZjzRW0-X96n4JhLLDtQw4rnKmsPOIx68vI0SFQnF6lxUTBwe2TBUjyq3KsKM7EykF3w2yHeR4lFxtl-ptvsrbi6vr_4pD4cWhn8AIDvZfVMzDTHr4krGMWG4U7h4YDI4RJOfL0hoQE94aH9NZsSBzmMUfFWPpDQrbJuEyQIXjw_lkkRf8lwnPTCVR5ArLN02jFmz45hkRKPU"/>
+<h1 class="text-title-sm font-bold text-primary">Scholastic AI</h1>
+</div>
+<p class="text-label-caps text-on-surface-variant uppercase ml-xs">Digital Library</p>
+</div>
+<!-- CTA -->
+<!-- Navigation Links -->
+<div class="flex-1 flex flex-col gap-xs">
+<a class="flex items-center gap-sm px-sm py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="text-label-caps uppercase">Library</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-sm rounded-lg bg-surface-container-lowest shadow-sm text-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+<span class="text-label-caps uppercase">Chat</span>
+</a>
+<a class="flex items-center gap-sm px-sm py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="text-label-caps uppercase">History</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col md:ml-[280px] min-h-screen">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center h-16 px-gutter w-full sticky top-0 z-40 bg-surface-bright/80 backdrop-blur-md border-b border-outline-variant/30">
+<!-- Mobile Brand/Menu -->
+<div class="flex md:hidden items-center gap-sm">
+<button class="p-xs text-on-surface-variant hover:bg-surface-container-low rounded-full">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="text-title-sm font-bold text-primary">Scholastic AI</h1>
+</div>
+<div class="hidden md:flex flex-1"></div>
+<div class="flex items-center gap-sm">
+<button class="p-sm text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-sm text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="User Avatar" class="w-8 h-8 rounded-full ml-sm cursor-pointer hover:opacity-80 transition-opacity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCttv9RQ03ciqdLc2_opDn0hla9gHVppUN_RhbINjujq2sxKlbcsy3uITzn8YtFhWoX9fg62IAljrHxuSI_jJ-2MtJ8QFu99cw7tswQRAZWuO5TCWeV7zJZz09n8f7vvt4AUDCoyN4si93gGxnGrbVYqAF2vRGuuJ_o8UCyFJg-wcoNXKPMO6vY15SkA1_KqFlr3l2VoH-oCIL5zyGGF9cKrdRQwn4RXJ_CupvBhsuWMT3r8tQaG9oUnAZE0osjspuJ8Ndwr8LDjUg"/>
+</div>
+</header>
+<!-- Main Chat Area (Split View) -->
+<main class="flex-1 flex flex-col lg:flex-row overflow-hidden bg-surface-bright">
+<!-- Centralized Chat Interface (Moved to Left) -->
+<section class="flex-1 flex flex-col bg-surface-bright min-w-0 relative z-0">
+<!-- Chat History Area -->
+<div class="flex-1 overflow-y-auto p-gutter flex flex-col items-center">
+<div class="w-full max-w-3xl flex flex-col gap-lg pb-xl">
+<!-- AI Greeting -->
+<div class="flex w-full justify-start">
+<div class="bg-surface-container-lowest rounded-3xl rounded-tl-sm p-6 max-w-[85%] shadow-sm border border-outline-variant/20">
+<p class="text-body-md text-on-surface">
+                                I have loaded the selected documents from your library. We are currently referencing "On the Nature of Digital Things.pdf", specifically Chapter IV. What aspect of information architecture would you like to explore across your library?
+                            </p>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex w-full justify-end">
+<div class="bg-primary text-on-primary rounded-3xl rounded-tr-sm p-6 max-w-[85%] shadow-sm">
+<p class="text-body-md">
+                                Can you summarize the main argument about how digital search differs from physical search according to the second paragraph?
+                            </p>
+</div>
+</div>
+<!-- AI Response -->
+<div class="flex w-full justify-start">
+<div class="bg-surface-container-lowest rounded-3xl rounded-tl-sm p-6 max-w-[85%] shadow-sm border border-outline-variant/20 flex flex-col gap-sm">
+<p class="text-body-md text-on-surface">
+                                Based on the second paragraph of Chapter IV, the core argument distinguishes the two search types by their governing constraints:
+                            </p>
+<ul class="list-disc pl-md text-body-md text-on-surface space-y-xs">
+<li><strong>Physical Search:</strong> Limited by geography, space, and the necessity to physically move through an environment (e.g., traversing library aisles).</li>
+<li><strong>Digital Search:</strong> Freed from physical distance, operating instantaneously. However, it is fundamentally constrained and defined by its "invisible architecture"—the underlying schema or meta-structure that organizes the data.</li>
+</ul>
+<p class="text-body-md text-on-surface mt-xs">
+                                Essentially, the author posits that while digital search feels unconstrained, it is actually governed by the structural design of the data itself.
+                            </p>
+<!-- Citation Chip -->
+<div class="mt-sm flex flex-wrap gap-sm">
+<span class="inline-flex items-center gap-xs px-sm py-xs bg-secondary-container/50 text-on-secondary-container text-label-caps rounded-full border border-outline-variant/30 uppercase cursor-pointer hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined text-[14px]">find_in_page</span>
+                                    On the Nature of Digital Things - Pg 42
+                                </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area -->
+<div class="p-gutter border-t border-outline-variant/20 bg-surface-bright/90 backdrop-blur-sm shrink-0 flex flex-col items-center">
+<div class="w-full max-w-3xl">
+<div class="relative flex items-end gap-sm bg-surface-container-lowest border border-outline-variant/40 rounded-2xl focus-within:border-primary/50 focus-within:shadow-md transition-all p-xs pl-md shadow-sm">
+<button class="p-xs text-on-surface-variant hover:text-primary transition-colors mb-xs" title="Attach file">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<textarea class="w-full bg-transparent border-none focus:ring-0 resize-none max-h-32 text-body-md py-sm text-on-background placeholder-outline min-h-[44px]" placeholder="Message Scholastic AI..." rows="1"></textarea>
+<button class="bg-primary text-on-primary p-sm rounded-xl hover:opacity-90 transition-opacity mb-xs ml-auto flex items-center justify-center shrink-0 shadow-sm" title="Send message">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+<div class="text-center mt-sm">
+<span class="text-label-caps text-on-surface-variant/70 uppercase tracking-widest">Scholastic AI can make mistakes. Verify important information.</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Panel: Source Documents (Moved to Right) -->
+<aside class="w-[320px] border-l border-outline-variant/20 bg-surface-bright/50 hidden lg:flex flex-col shrink-0 relative z-10 shadow-[-4px_0_24px_rgba(0,0,0,0.02)]">
+<div class="h-16 flex items-center px-md border-b border-outline-variant/20 shrink-0 justify-between">
+<h2 class="text-title-sm font-semibold text-on-surface">Source Documents</h2>
+<button class="p-xs text-on-surface-variant hover:bg-surface-container-lowest rounded-full transition-colors">
+<span class="material-symbols-outlined text-sm">keyboard_double_arrow_right</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-sm flex flex-col gap-sm">
+<div class="flex items-start gap-sm p-sm rounded-xl bg-surface-container-lowest shadow-sm border border-outline-variant/20 cursor-pointer transition-colors">
+<span class="material-symbols-outlined text-secondary shrink-0">description</span>
+<div class="flex-col overflow-hidden">
+<p class="text-body-sm font-semibold text-on-surface truncate">On the Nature of Digital Things.pdf</p>
+<p class="text-label-caps text-on-surface-variant mt-xs">Active Document</p>
+</div>
+</div>
+<div class="flex items-start gap-sm p-sm rounded-xl hover:bg-surface-container-lowest hover:shadow-sm cursor-pointer transition-all border border-transparent hover:border-outline-variant/10">
+<span class="material-symbols-outlined text-on-surface-variant shrink-0">description</span>
+<div class="flex-col overflow-hidden">
+<p class="text-body-sm font-medium text-on-surface-variant truncate">Information Architecture Guidelines.pdf</p>
+<p class="text-label-caps text-outline mt-xs">In Library</p>
+</div>
+</div>
+<button class="flex items-center gap-sm p-sm rounded-xl text-primary hover:bg-surface-container-lowest hover:shadow-sm transition-all mt-sm border border-transparent hover:border-outline-variant/10">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="text-body-sm font-semibold">Include more documents</span>
+</button>
+</div>
+</aside>
+</main>
+</div>
+</body></html>

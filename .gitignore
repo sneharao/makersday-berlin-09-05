@@ -1,0 +1,17 @@
+node_modules
+.env
+.env.*
+!.env.example
+
+build
+.react-router/
+.cache/
+dist/
+
+.DS_Store
+*.log
+
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/

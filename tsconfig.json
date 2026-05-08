@@ -1,0 +1,44 @@
+{
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/.server/**/*.ts",
+    "**/.server/**/*.tsx",
+    "**/.client/**/*.ts",
+    "**/.client/**/*.tsx",
+    ".react-router/types/**/*"
+  ],
+  "exclude": ["node_modules", "build", "inspiration-repo"],
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "types": ["node", "vite/client"],
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "target": "ES2022",
+    "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noEmit": true,
+    "rootDirs": [".", "./.react-router/types"],
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./app/*"],
+      "@backend-main/*": ["./app/backend.server/main/*"],
+      "@backend-application/*": ["./app/backend.server/application/*"],
+      "@backend-domain/*": ["./app/backend.server/domain/*"],
+      "@backend-infrastructure/*": ["./app/backend.server/infrastructure/*"],
+      "@backend-platform/infrastructure/*": ["./app/backend.server/platform/infrastructure/*"],
+      "@backend-platform/shared/*": ["./app/backend.server/platform/shared/*"],
+      "@components/*": ["./app/ui.client/components/*"],
+      "@ui/*": ["./app/ui.client/*"],
+      "@shared/*": ["./app/shared/*"]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "install": "npm install",
+  "start": "echo 'Development environment ready'",
+  "terminals": [
+    {
+      "name": "Development Server",
+      "command": "npm run dev"
+    },
+    {
+      "name": "TypeScript Watch",
+      "command": "npm run typecheck -- --watch"
+    }
+  ]
+}
