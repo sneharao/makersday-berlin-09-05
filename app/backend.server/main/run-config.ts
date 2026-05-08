@@ -2,7 +2,6 @@ import { z } from "zod";
 import { readFromEnv } from "@backend-platform/shared/env/env-utils";
 import { MongoClientConfig } from "@backend-platform/infrastructure/mongo/config";
 import { AuthConfig } from "@backend-application/authentication/config";
-import { LibraryConfig } from "@backend-application/library/config";
 
 const environmentValues = ["development", "staging", "production"] as const;
 const environmentSchema = z.enum(environmentValues);
@@ -23,7 +22,6 @@ export class AppConfig {
     readonly baseUrl: string,
     readonly mongo: MongoClientConfig,
     readonly auth: AuthConfig,
-    readonly library: LibraryConfig,
   ) {}
 
   isLocal(): boolean {
@@ -56,7 +54,6 @@ export class AppConfig {
       baseUrl,
       MongoClientConfig.fromEnv(),
       AuthConfig.fromEnv(env.DEPLOYED_ENV),
-      LibraryConfig.fromEnv(),
     );
   }
 }
