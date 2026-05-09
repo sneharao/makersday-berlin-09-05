@@ -7,8 +7,8 @@ import {
   getArtifactDownloadUrl,
 } from "~/routes/api/api.library.artifacts._sdk";
 import { callLogoutApi } from "~/routes/api/api.auth._sdk";
-import { Sidebar } from "./Sidebar";
-import { TopAppBar } from "./TopAppBar";
+import { Sidebar } from "@components/layout/AppShell/Sidebar";
+import { TopAppBar } from "@components/layout/AppShell/TopAppBar";
 import { UploadDropzone } from "./UploadDropzone";
 import { DocumentGrid } from "./DocumentGrid";
 import { useUploadArtifact } from "./hooks/use-upload-artifact";

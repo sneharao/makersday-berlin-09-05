@@ -27,14 +27,14 @@ A user clicks **Chat** in the sidebar, lands on an empty conversation, types a q
   - Center column: scrollable conversation, AI greeting bubble, user bubbles right-aligned in `--primary`, AI bubbles left-aligned with `--outline-variant` border, citation chips under AI messages.
   - Right column: "Source Documents" panel listing documents referenced by the current conversation (active doc highlighted, others muted), plus "Include more documents" affordance.
   - Bottom composer: textarea with attach icon, send button, helper text "Scholastic AI can make mistakes…".
-- Backend endpoints:
-  - `POST /api/chat/sessions` — creates a new chat session for the current user, returns `session_id`.
-  - `GET /api/chat/sessions/:id` — returns session metadata and ordered messages.
-  - `POST /api/chat/sessions/:id/messages` — accepts a user message, persists it, then **returns a hardcoded AI response** (see "Response strategy" below) along with a list of source document references.
-- A small, deterministic mock-response engine on the backend:
-  - Picks the AI reply from a curated set of canned responses keyed by simple keywords (e.g. "summary", "compare", "definition", default fallback).
-  - Each canned response includes 0–3 `source_document_id`s drawn from the user's actual library (GR-002), so citations always link to a real file.
-  - If the user has no documents, the AI response politely points them to the Library page.
+- Backend endpoints (named per the harness `chat` ubiquitous language — see `harness/knowledge/domain/chat/language.md`):
+  - `POST /api/chat/chats` — creates a new chat for the current user, returns `chatId` and the persisted `system` greeting message.
+  - `GET /api/chat/chats/:chatId` — returns chat metadata and ordered messages.
+  - `POST /api/chat/chats/:chatId/messages` — accepts a user message, persists it, then **returns a hardcoded AI response** (see "Response strategy" below) along with the persisted assistant message and its citations.
+- A small, deterministic mock-response engine on the backend, behind a `ChatResponseGateway` port (`application/chat/chat-response.gateway.ts`) implemented by `infrastructure/gateways/chat/canned-chat-response.adapter.ts`:
+  - Picks the AI reply from a curated set of canned responses keyed by simple keywords (`summary`, `compare`, `definition`, default fallback).
+  - Each canned response includes 0–3 `Citation`s drawn from the user's actual library (GR-002), so citations always link to a real artifact.
+  - If the user has no artifacts, the AI response politely points them to the Library page.
 - Frontend behaviours:
   - Sending a message optimistically appends the user bubble, then streams (or just shows after a small artificial delay, e.g. 400 ms) the AI bubble.
   - Citation chips under AI bubbles are clickable and highlight the corresponding card in the Source Documents panel.
@@ -70,12 +70,12 @@ A user clicks **Chat** in the sidebar, lands on an empty conversation, types a q
 
 ## Technical notes
 
-- MongoDB collections (snake_case):
-  - `chat_sessions`: `_id`, `user_id`, `title`, `created_at`, `updated_at`, `last_message_preview`.
-  - `chat_messages`: `_id`, `session_id`, `user_id`, `role` (`user` | `assistant`), `content`, `source_document_ids`, `created_at`.
-- Keep the canned-response logic behind a `chat_response_provider` interface so swapping it for a real LLM/RAG pipeline is a single dependency change.
-- Make `session_id` visible in the URL (`/chat/:session_id`) so deep-linking from History (GR-004) is trivial.
-- The Source Documents panel reads from `documents` (GR-002) joined with the union of `source_document_ids` across the session's messages.
+- MongoDB collections (camelCase fields per the harness; see `harness/knowledge/domain/chat/data-model.md`):
+  - `chats`: `id`, `userId`, `libraryId`, `title`, `isActive`, `lastMessageAt?`, `createdAt`, `updatedAt`.
+  - `chat_messages`: `id`, `chatId`, `sequence`, `role` (`user` | `assistant` | `system`), `body` (`{ format, text }`), `citations[] ({ libraryId, artifactId, pageNumber, excerpt? })`, `createdAt`, `updatedAt`. Append-only.
+- Keep the canned-response logic behind a `ChatResponseGateway` port so swapping it for a real LLM/RAG pipeline is a single dependency change.
+- Make `chatId` visible in the URL (`/chat/:chatId`) so deep-linking from History (GR-004) is trivial.
+- The Source Documents panel reads from the user's `Library` (GR-002) joined with the union of `citations[].artifactId` across the chat's messages.
 
 ## Dependencies
 

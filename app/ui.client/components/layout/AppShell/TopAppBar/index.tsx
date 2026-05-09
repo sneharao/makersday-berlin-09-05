@@ -1,9 +1,4 @@
-import type { AuthenticatedUserDto } from "@backend-application/authentication/auth.dto";
-
-export interface TopAppBarProps {
-  user: AuthenticatedUserDto;
-  onSignOut: () => void;
-}
+import type { TopAppBarProps } from "./types";
 
 export function TopAppBar({ user, onSignOut }: TopAppBarProps): React.JSX.Element {
   const initials = user.displayName

@@ -132,6 +132,21 @@ export class LibraryService {
     }
   }
 
+  /**
+   * Resolves an artifact owned by the user across the user's default library.
+   * Returns `null` when the artifact does not belong to the user.
+   *
+   * Used by other contexts (e.g. `chat`) for cross-context artifact lookups
+   * via the application service rather than the repository — see
+   * `harness/knowledge/repo-architecture/dependency-rules.md` (Common Scenarios).
+   */
+  public async getArtifactById(userId: string, artifactId: string): Promise<ArtifactDto | null> {
+    const library = await this.findOrCreateDefaultLibrary(userId);
+    const artifact = await this.libraryRepo.getArtifactById(userId, library.id, artifactId);
+    if (!artifact || artifact.uploadStatus === "removed") return null;
+    return toArtifactDto(artifact);
+  }
+
   public async getArtifactBinary(userId: string, artifactId: string): Promise<ArtifactBinaryDto> {
     const library = await this.findOrCreateDefaultLibrary(userId);
     const artifact = await this.libraryRepo.getArtifactById(userId, library.id, artifactId);
